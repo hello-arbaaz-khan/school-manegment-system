@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Teacher Attendance</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-success mb-4">
+    <div class="container">
+        <a class="navbar-brand" href="#">School Management System</a>
+    </div>
+</nav>
+
+<div class="container mt-5">
+    <h2 class="text-center">Edit Teacher Attendance</h2>
+    <form method="POST" class="mt-4">
+        {% csrf_token %}
+
+        <div class="mb-3">
+            <label class="form-label">Teacher</label>
+            <input type="text" class="form-control" value="{{ attendance.teacher.name }}" readonly>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Date</label>
+            <input type="date" name="date" class="form-control" value="{{ attendance.date|date:'Y-m-d' }}" required>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Status</label>
+            <select name="status" class="form-control" required>
+                <option value="Present" {% if attendance.status == "Present" %}selected{% endif %}>Present</option>
+                <option value="Apsent" {% if attendance.status == "Apsent" %}selected{% endif %}>Apsent</option>
+            </select>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Update</button>
+        <a href="{% url 'teacher_attendance_list' %}" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

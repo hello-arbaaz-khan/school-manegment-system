@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block title %}Edit Attendance{% endblock %}
+
+{% block content %}
+<div class="container text-center mt-5">
+   <h2>Edit Attendance</h2>
+    <form method="POST">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label>Name</label>
+            <input type="text" name="name" class="form-control" value="{{ student.name }}" required>
+        </div>
+        <div class="mb-3">
+            <label>Date</label>
+            <input type="date" name="date" class="form-control" value="{{ attendance.date }}" required>
+        </div>        
+        <div class="mb-3">
+            <label>Status</label>
+            <input type="text" name="student_class" class="form-control" value="{{ attendance.status }}" required>
+        </div>       
+        <button type="submit" class="btn btn-success">Update</button>
+        <a href="{% url 'attendance_list' %}" class="btn btn-secondary">Cancle</a>
+    </form>
+</div>
+{% endblock %}

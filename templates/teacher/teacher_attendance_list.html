@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block title %}Teacher Attendance List{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="text-center mb-4">All Teacher Attendance Records</h2>
+    <a href="{% url 'mark_teacher_attendance' %}" class="btn btn-primary mb-3">Mark New Attendance</a>
+    <a href="{% url 'home' %}" class="btn btn-dark mb-3">Back</a>
+
+    <table class="table table-bordered table-striped">
+        <thead class="table-dark">
+            <tr>
+                <th>Teacher Name</th>
+                <th>Date</th>
+                <th>Status</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for attendance in attendances %}
+                <tr>
+                    <td>{{ attendance.teacher.name }}</td>
+                    <td>{{ attendance.date|date:"Y-m-d" }}</td>
+                    <td>
+                        {% if attendance.status == 'Present' %}
+                            <span class="badge bg-success">Present</span>
+                        {% else %}
+                            <span class="badge bg-danger">Absent</span>
+                        {% endif %}
+                    </td>
+                    <td>
+                        <a href="{% url 'edit_teacher_attendance' attendance.id %}" class="btn btn-warning btn-sm">Edit</a>
+                        <a href="{% url 'delete_teacher_attendance' attendance.id %}" class="btn btn-danger btn-sm">Delete</a>
+                    </td>
+                </tr>
+            {% empty %}
+                <tr>
+                    <td colspan="4" class="text-center">No attendance record found.</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

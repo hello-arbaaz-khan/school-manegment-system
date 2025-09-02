@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block title %}Delete Teacher Attendance{% endblock %}
+
+{% block content %}
+<div class="container mt-5 text-center">
+    <h2>Confirm Delete</h2>
+     <strong>{{ attendance.teacher.name }}</strong> on <strong>{{ attendance.date }}</strong>
+    
+    <form method="POST">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Yes, Delete</button>
+        <a href="{% url 'teacher_attendance_list' %}" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>
+{% endblock %}

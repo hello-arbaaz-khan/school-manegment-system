@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block title %}Mark Teacher Attendance{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="text-center">Mark Teacher Attendance</h2>
+    <form method="POST">
+        {% csrf_token %}
+        <table class="table table-bordered">
+            <thead class="table-dark">
+                <tr>
+                    <th>Teacher Name</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for teacher in teachers %}
+                <tr>
+                    <td>{{ teacher.name }}</td>
+                    <td>
+                        <select name="status_{{ teacher.id }}" class="form-select">
+                            <option value="Present">Present</option>
+                            <option value="Apsent">Absent</option>
+                        </select>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <button type="submit" class="btn btn-success">Submit Attendance</button>
+        <a href="{% url 'home' %}" class="btn btn-dark">Back</a>
+    </form>
+</div>
+{% endblock %}
